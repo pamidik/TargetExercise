@@ -2,11 +2,13 @@ package com.retail.application;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +18,9 @@ import org.springframework.web.client.RestTemplate;
 @ComponentScan(basePackages={"com.retail"})
 public class MyReatilRestFulServiceApplication {
 	
+	@Autowired
+	private Environment env;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(MyReatilRestFulServiceApplication.class, args);
 	}
@@ -23,10 +28,10 @@ public class MyReatilRestFulServiceApplication {
 	@Bean(name="dataSource")
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/TargetExercise");
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName(env.getProperty("spring.db.driverclass"));
+        dataSource.setUrl(env.getProperty("spring.db.url"));
+        dataSource.setUsername(env.getProperty("spring.db.username"));
+        dataSource.setPassword(env.getProperty("spring.db.password"));
         return dataSource;
     }
 	
