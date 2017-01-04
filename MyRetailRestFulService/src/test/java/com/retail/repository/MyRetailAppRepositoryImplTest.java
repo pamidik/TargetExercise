@@ -15,7 +15,7 @@ import com.retail.model.Product;
 import com.retail.repository.MyRetailAppRepository;
 import com.retail.repository.MyRetailAppRepositoryImpl;
 
-public class MyRetailAppRepositoryImplTest {
+public class MyRetailAppRepositoryImplTest { 
 	
 	@Mock
 	private JdbcTemplate jTemplate;
