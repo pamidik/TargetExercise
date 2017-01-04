@@ -17,18 +17,18 @@ public class MyRetailAppRepositoryImpl implements MyRetailAppRepository {
 	
 	@Override
 	public Product getProductDetails(String id) {
-		return jTemplate.queryForObject(PRODUCT_DETAILS_QUERY, new Object[]{id}, new ProductMapper());
+		return jTemplate.queryForObject(Queries.PRODUCT_DETAILS_QUERY, new Object[]{id}, new ProductMapper());
 	}
 
 	@Override
 	public Product getPricingInformation(String id, String name) {
-		Product product = jTemplate.queryForObject(PRICE_DETAILS_QUERY, new Object[]{id, name}, new ProductMapper());
+		Product product = jTemplate.queryForObject(Queries.PRICE_DETAILS_QUERY, new Object[]{id, name}, new ProductMapper());
 		return product;
 	}
 
 	@Override
 	public Product updateProductPrice(String id, Double value) {
-		int updateRecordCount = this.jTemplate.update(UPDATE_PRODUCT_PRICE_QUERY, new Object[]{value, id});
+		int updateRecordCount = this.jTemplate.update(Queries.UPDATE_PRODUCT_PRICE_QUERY, new Object[]{value, id});
 		if(updateRecordCount <= 0){
 			return new Product();
 		}

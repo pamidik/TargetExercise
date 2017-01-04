@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.core.env.Environment;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,12 +27,16 @@ public class MyRetailAppServiceImplTest {
 	@Mock
 	private RestTemplate restTemplate;
 	
+	@Mock
+	private Environment env;
+	
 	@Before
 	public void setUp() throws Exception {
 		myRetailAppServiceImpl = new MyRetailAppServiceImpl();
 		MockitoAnnotations.initMocks(this);
 		ReflectionTestUtils.setField(myRetailAppServiceImpl, "myRetailAppRepository", myRetailAppRepository);
 		ReflectionTestUtils.setField(myRetailAppServiceImpl, "restTemplate", restTemplate);
+		ReflectionTestUtils.setField(myRetailAppServiceImpl, "env", env);
 	}
 	
 	@Test
@@ -67,6 +72,7 @@ public class MyRetailAppServiceImplTest {
 		Map<String, Object> expectedProduct = new HashMap<String, Object>();
 		expectedProduct.put("product", item);
 		
+		Mockito.when(this.env.getProperty(Mockito.anyString())).thenReturn("");
 		Mockito.when(this.restTemplate.getForObject(Mockito.anyString(), Mockito.any(), Mockito.any(Object[].class))).thenReturn(expectedProduct);
 		
 		String productName = this.myRetailAppServiceImpl.retrieveProductName(id);

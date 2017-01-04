@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +21,9 @@ public class MyRetailAppServiceImpl implements MyRetailAppService {
 	@Qualifier("restTemplate")
 	private RestTemplate restTemplate;
 	
+	@Autowired
+	private Environment env;
+	
 	@Override
 	public Product getProductDetails(String id) {
 		return this.myRetailAppRepository.getProductDetails(id);
@@ -28,7 +32,7 @@ public class MyRetailAppServiceImpl implements MyRetailAppService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public String retrieveProductName(String id) {
-		String URL = EXTERNAL_URL.concat(id).concat(EXTERNAL_URL_PARAM_STRING);
+		String URL = env.getProperty("external.api.url").concat(id).concat(env.getProperty("external.api.url.params"));
 		Map<String, Object> resultMap = this.restTemplate.getForObject(URL, Map.class, new Object[]{id});
 		Map<String, Object> productDescriptionMap = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) resultMap.get("product")).get("item")).get("product_description");
 		return (String) productDescriptionMap.get("title");
