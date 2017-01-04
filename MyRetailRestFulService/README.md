@@ -1,4 +1,4 @@
-Project Description:
+#Project Description:
 myRetail is a rapidly growing company with HQ in Richmond, VA and over 200 stores across the east coast. myRetail wants to make its internal data available to any number of client devices, from myRetail.com to native mobile apps. 
 
 The goal for this exercise is to create an end-to-end Proof-of-Concept for a products API, which will aggregate product data from multiple sources and return it as JSON to the caller. 
@@ -13,14 +13,16 @@ Build an application that performs the following actions:
 >> Performs an HTTP GET to retrieve the product name from an external API. (For this exercise the data will come from redsky.target.com, but let’s just pretend this is an internal resource hosted by myRetail) 
 	Example: http://redsky.target.com/v1/pdp/tcin/13860428?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics
 
->> Reads pricing information from a NoSQL data store and combines it with the product id and name from the HTTP request into a single response.  
+>> Reads pricing information from a NoSQL data store and combines it with the product id and name from the HTTP request into a single response.
+
 >> BONUS: Accepts an HTTP PUT request at the same path (/products/{id}), containing a JSON request body similar to the GET response, and updates the product’s price in the data store.  
-Environment Requirements:
+
+#Environment Requirements:
 Below mentioned software(s) are needed to run the application,
 1. STS - Spring Tool Suite
 2. MySQL DB & MySQL workbench
 
-Instructions to run the Application:
+#Instructions to run the Application:
 1. Clone the Project repository from below GitHub URL 
 	GitHub URL = https://github.com/pamidik/TargetExercise.git
 2. Import the project as Maven project into the workspace.
