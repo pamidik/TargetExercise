@@ -1,4 +1,4 @@
-package com.reatil.repository;
+package com.retail.repository;
 
 import org.junit.Assert;
 import org.junit.Before;
