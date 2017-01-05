@@ -32,6 +32,11 @@ public class MyReatilApplicationController {
 		return this.myRetailAppService.getPricingInformation(id, name);
 	}
 	
+	@RequestMapping(path="/readPricingInformation", method=RequestMethod.GET)
+	public Product readPricingInformation(@RequestParam String id){
+		return this.myRetailAppService.readPricingInformation(id);
+	}
+	
 	@RequestMapping(path="/updateProductPrice/{id}", method=RequestMethod.PUT)
 	public Product updateProductPrice(@PathVariable("id") String id, @RequestParam String value){
 		return this.myRetailAppService.updateProductPrice(id, Double.parseDouble(value));

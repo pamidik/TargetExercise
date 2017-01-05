@@ -10,7 +10,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.retail.model.PriceDetail;
@@ -80,6 +82,16 @@ public class MyRetailAppServiceImplTest {
 	}
 	
 	@Test
+	public void testRetrieveProductName_Exception(){
+		String id="151177291";
+		Mockito.when(this.env.getProperty(Mockito.anyString())).thenReturn("");
+		
+		Mockito.when(this.restTemplate.getForObject(Mockito.anyString(), Mockito.any(), Mockito.any(Object[].class))).thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND)).thenReturn("");
+		String name = this.myRetailAppServiceImpl.retrieveProductName(id);
+		Assert.assertEquals("", name);
+	}
+	
+	@Test
 	public void testUpdateProductPrice(){
 		String id="15117729";
 		Double value = 99.99;
@@ -96,5 +108,5 @@ public class MyRetailAppServiceImplTest {
 		Product actualProduct = this.myRetailAppServiceImpl.updateProductPrice(id, value);
 		Assert.assertEquals(expectedProduct.getCurrent_price().getValue(), actualProduct.getCurrent_price().getValue());
 	}
-
+	
 }

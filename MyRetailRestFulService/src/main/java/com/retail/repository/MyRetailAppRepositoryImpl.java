@@ -1,5 +1,6 @@
 package com.retail.repository;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,12 +12,15 @@ import com.retail.model.Product;
 @Repository("myRetailAppRepository")
 public class MyRetailAppRepositoryImpl implements MyRetailAppRepository {
 	
+	private static final Logger LOGGER = Logger.getLogger(MyRetailAppRepositoryImpl.class);
+	
 	@Autowired
 	@Qualifier("jTemplate")
 	private JdbcTemplate jTemplate;
 	
 	@Override
 	public Product getProductDetails(String id) {
+		LOGGER.info("Executing MyRetailAppRepositoryImpl getProductDetails() method :: "+id);
 		return jTemplate.queryForObject(Queries.PRODUCT_DETAILS_QUERY, new Object[]{id}, new ProductMapper());
 	}
 

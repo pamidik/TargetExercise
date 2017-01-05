@@ -50,5 +50,9 @@ Below mentioned software(s) are needed to run the application,
 		Path Params : id
 		Request Params : value
 		Example : http://localhost:8100/retail/updateProductPrice/15117729?value=499.99
+	e. http://localhost:8100/retail/readPricingInformation?id={id} 
+		Method Type : GET
+		Request Params : id
+		Example : http://localhost:8100/retail/readPricingInformation?id=13860428
 
  
